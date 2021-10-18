@@ -10,6 +10,7 @@ import es.albarregas.models.Divisor;
 import es.albarregas.models.Multiplicador;
 import es.albarregas.models.Restador;
 import es.albarregas.beans.Calculator;
+import es.albarregas.exceptions.DivisionPorCeroException;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -57,16 +58,14 @@ public class Controlador extends HttpServlet {
         Date fecha;
         SimpleDateFormat sdf;
         boolean error;
-        String url;
+        String url = "JSP/resultado.jsp";
         Calculator calculator = new Calculator();
-        
+
         try {
             int operando1 = Integer.parseInt(request.getParameter("operando1"));
             int operando2 = Integer.parseInt(request.getParameter("operando2"));
             String operacion = request.getParameter("operacion");
-            
-            String signo = null;
-            int resultado = 0;
+
             error = false;
             switch (operacion) {
                 case "suma":
@@ -89,40 +88,38 @@ public class Controlador extends HttpServlet {
                     break;
                 case "division":
                     Divisor divisor = new Divisor();
+                    try {
 
-                    calculator.setResultado(divisor.dividir(operando1, operando2));
-                    calculator.setSigno("/");
-                    // Si ha devuelto el valor máximo de los enteros, es que se ha
-                    // intentado dividir por cero
-                    if (calculator.getResultado() == Integer.MAX_VALUE) {
+                        calculator.setResultado(divisor.dividir(operando1, operando2));
+                        calculator.setSigno("/");
+                    } catch (DivisionPorCeroException e) {
+
                         error = true;
+
                     }
             }
             if (error) {
                 request.setAttribute("error", "Se está intentando dividir por cero");
-//                calculator.setError("Se está intentando dividir por cero");
+
                 url = "JSP/error.jsp";
             } else {
                 fecha = new Date();
                 sdf = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss");
-//                calculator.setFecha(sdf.format(fecha));
+
                 calculator.setOperando1(operando1);
                 calculator.setOperando2(operando2);
                 request.setAttribute("fecha", sdf.format(fecha));
-//                
-//
-//                request.setAttribute("operando1", operando1);
-//                request.setAttribute("operando2", operando2);
-//                request.setAttribute("resultado", resultado);
-//                request.setAttribute("signo", signo);
-                url = "JSP/resultado.jsp";
+                request.setAttribute("calcula", calculator);
+
+
             }
+
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Alguno de los operandos no es un número válido");
-//            calculator.setError("Alguno de los operandos no es un número válido");
+
             url = "JSP/error.jsp";
         }
-        request.setAttribute("calcula", calculator);
+        
         request.getRequestDispatcher(url).forward(request, response);
     }
 

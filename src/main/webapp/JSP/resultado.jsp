@@ -7,8 +7,8 @@
 <%@page import="es.albarregas.beans.Calculator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="es">
     <head>
         <%@include file="/INC/metas.inc"%>
         <title>Calculadora</title>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td><%=request.getAttribute("fecha") %></td>
-                <%--<td><%=calculator.getFecha()%></td>--%>
+                
 
 
             </tr>	
