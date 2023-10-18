@@ -29,15 +29,16 @@ input {
     font-family: verdana;
     font-size: 1.1em;
 }
-table#datos {
+div#datos {
     width: 100%;
+    font-size: .7em;
 }
-table#datos th {
+/*table#datos th {
     font-size: .6em;
 }
 table#datos td {
     font-size: .7em;
-}
+}*/
 h2#error {
     color: red;
 }

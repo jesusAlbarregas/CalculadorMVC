@@ -8,7 +8,7 @@ package es.albarregas.beans;
 import java.io.Serializable;
 
 /**
- *
+ * Almacenamos los componentes de la operación
  * @author Jesus
  */
 public class Calculator implements Serializable {

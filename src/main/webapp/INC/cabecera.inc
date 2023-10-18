@@ -1,4 +1,4 @@
-
+<!-- Esta capa se cierra en el fichero pie.inc -->
 <div id="contenedor">
     <div class="exterior">
         <img alt="Imagen del logo" src="image/matematicas.gif" />

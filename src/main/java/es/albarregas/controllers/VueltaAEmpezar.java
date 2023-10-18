@@ -31,6 +31,7 @@ public class VueltaAEmpezar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Redirigimos hacia el componente vista inicio de la aplicación
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

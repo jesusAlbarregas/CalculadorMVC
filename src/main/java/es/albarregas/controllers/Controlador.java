@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jesus
  */
-@WebServlet(name = "Controlador", urlPatterns = {"/control"})
+@WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
 
     /**
@@ -62,52 +62,58 @@ public class Controlador extends HttpServlet {
         Calculator calculator = new Calculator();
 
         try {
+            // Capturamos los datos enviados desde el formulario y los validamos
             int operando1 = Integer.parseInt(request.getParameter("operando1"));
             int operando2 = Integer.parseInt(request.getParameter("operando2"));
             String operacion = request.getParameter("operacion");
 
             error = false;
+            // Dependiendo de la operación a realizar llamamos a un modelo u a otro
+            // En cualquiere caso le pasaremos los dos operandos y recibiremos el resultado
             switch (operacion) {
-                case "suma":
+                case "suma": // Accedemos al modelo Sumador
                     Sumador sumador = new Sumador();
 
                     calculator.setResultado(sumador.sumar(operando1, operando2));
                     calculator.setSigno("+");
                     break;
-                case "resta":
+                case "resta": // Accedemos al modelo Restador
                     Restador restador = new Restador();
 
                     calculator.setResultado(restador.restar(operando1, operando2));
                     calculator.setSigno("-");
                     break;
-                case "producto":
+                case "producto": // Accedemos al modelo Multiplicador
                     Multiplicador multiplicador = new Multiplicador();
 
                     calculator.setResultado(multiplicador.multiplicar(operando1, operando2));
                     calculator.setSigno("*");
                     break;
-                case "division":
+                case "division": // Accedemos al modelo Divisor
                     Divisor divisor = new Divisor();
                     try {
-
+                        // LLamamos al método dividir del modelo pasándole los dos operandos
                         calculator.setResultado(divisor.dividir(operando1, operando2));
                         calculator.setSigno("/");
                     } catch (DivisionPorCeroException e) {
-
+                        // En el caso de producirse el error de intentar dividir por cero se captura la excepción
                         error = true;
 
                     }
             }
             if (error) {
+                // En el caso de que se esté intentando dividir por cero creamos un atributo de petición para informar al usuario
                 request.setAttribute("error", "Se está intentando dividir por cero");
-
+                // Redirigimos la salida para que muestre el error
                 url = "JSP/error.jsp";
             } else {
+                // Cuando todo está correcto, preparamos los datos de la salida
                 fecha = new Date();
                 sdf = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss");
 
                 calculator.setOperando1(operando1);
                 calculator.setOperando2(operando2);
+                // Creamos dos atributos de petición para poder mostrarlos en la salida
                 request.setAttribute("fecha", sdf.format(fecha));
                 request.setAttribute("calcula", calculator);
 
@@ -115,11 +121,13 @@ public class Controlador extends HttpServlet {
             }
 
         } catch (NumberFormatException e) {
+            // En el caso de que los datos de entrada no sean válidos para el proceso, creamos un atributo de petición
+            // para avisar al usuario
             request.setAttribute("error", "Alguno de los operandos no es un número válido");
-
+            // Redirigimos la salida para que visualice el error
             url = "JSP/error.jsp";
         }
-        
+        // Accedemos al siguiente componente que puede ser la salida normal o el aviso de error
         request.getRequestDispatcher(url).forward(request, response);
     }
 

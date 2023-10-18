@@ -13,30 +13,23 @@
         <%@include file="/INC/metas.inc"%>
         <title>Calculadora</title>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/CSS/estilo.css" media="screen" />
-        
+
     </head>
     <body>
         <%@include file="/INC/cabecera.inc"%>
         <%
+            // Cargamos el objeto calculator con lo que viene en el atributo de petición 
             Calculator calculator = (Calculator) request.getAttribute("calcula");
         %>
-        <table id="datos">
-            <tr>
-                <th>Fecha</th>
+        <div id="datos">
 
-
-            </tr>
-            <tr>
-                <td><%=request.getAttribute("fecha") %></td>
-                
-
-
-            </tr>	
-        </table>
-        
+            <p>Operación realizada <strong><%=request.getAttribute("fecha")%></strong>
+        </div>
+        <%-- Mostramos el resultado de la operación --%>
         <h2 id="final"><%=calculator.getOperando1()%> <%=calculator.getSigno()%> 
             <%=calculator.getOperando2()%> = <%=calculator.getResultado()%></h2>
-        <p><a href="VueltaAEmpezar">Calculadora</a></p>
+        <%-- Accedemos a un controlador para realizar otra operación --%>
+        <p><a href="<%=request.getContextPath()%>/VueltaAEmpezar">Calculadora</a></p>
 
         <%@include file="/INC/pie.inc" %>
     </body>
