@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 16-oct-2017, 16:59:06
-    Author     : Jesus
---%>
-
 <%@page import="es.albarregas.beans.Calculator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -23,13 +17,15 @@
         %>
         <div id="datos">
 
-            <p>Operación realizada <strong><%=request.getAttribute("fecha")%></strong>
+            <!--<p>Operación realizada <strong><%=request.getAttribute("fecha")%></strong>-->
+            <p>Operación realizada <strong>${requestScope.fecha}</strong>
         </div>
         <%-- Mostramos el resultado de la operación --%>
         <h2 id="final"><%=calculator.getOperando1()%> <%=calculator.getSigno()%> 
             <%=calculator.getOperando2()%> = <%=calculator.getResultado()%></h2>
+            
         <%-- Accedemos a un controlador para realizar otra operación --%>
-        <p><a href="<%=request.getContextPath()%>/VueltaAEmpezar">Calculadora</a></p>
+        <p><a href="<%=request.getContextPath()%>/FrontController">Calculadora</a></p>
 
         <%@include file="/INC/pie.inc" %>
     </body>

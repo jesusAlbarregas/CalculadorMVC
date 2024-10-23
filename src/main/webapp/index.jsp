@@ -8,7 +8,7 @@
     </head>
     <body>
         <%@include file="INC/cabecera.inc"%>
-        <form action="<%=request.getContextPath()%>/Controlador" method="post">
+        <form action="<%=request.getContextPath()%>/FrontController" method="post">
             <table>
                 <tr>
                     <td colspan="2"><label for="o1">Primer operando:</label></td>

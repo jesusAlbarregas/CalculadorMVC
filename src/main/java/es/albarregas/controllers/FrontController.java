@@ -26,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jesus
  */
-@WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
-public class Controlador extends HttpServlet {
+@WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
+public class FrontController extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -40,8 +40,8 @@ public class Controlador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("error", "Se está intentando acceder sin pasar por el formulario de entrada");
-        request.getRequestDispatcher("JSP/error.jsp").forward(request, response);
+//        request.setAttribute("error", "Se está intentando acceder sin pasar por el formulario de entrada");
+        request.getRequestDispatcher(".").forward(request, response);
     }
 
     /**
